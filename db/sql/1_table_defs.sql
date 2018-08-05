@@ -1,5 +1,24 @@
+CREATE TABLE CANDIDATE_MASTER_FILE (
+    CAND_ID              varchar(9) PRIMARY KEY,
+    CAND_NAME            varchar(200),
+    CAND_PTY_AFFILIATION varchar(3),
+    CAND_ELECTION_YR     smallint,
+    CAND_OFFICE_ST       varchar(2),
+    CAND_OFFICE          varchar(1),
+    CAND_OFFICE_DISTRICT varchar(2),
+    CAND_ICI             varchar(1),
+    CAND_STATUS          varchar(1),
+    CAND_PCC             varchar(9),
+    CAND_ST1             varchar(34),
+    CAND_ST2             varchar(34),
+    CAND_CITY            varchar(30),
+    CAND_ST              varchar(2),
+    CAND_ZIP             varchar(9) 
+);
+
+
 CREATE TABLE  COMMITTEE_MASTER_FILE (
-    CMTE_ID              varchar(9) UNIQUE,
+    CMTE_ID              varchar(9) PRIMARY KEY,
     CMTE_NM              varchar(200),
     TRES_NM              varchar(90),
     CMTE_ST1             varchar(34),
@@ -13,7 +32,7 @@ CREATE TABLE  COMMITTEE_MASTER_FILE (
     CMTE_FILING_FREQ     varchar(1),
     ORG_TP               varchar(1),
     CONNECTED_ORG_NM     varchar(200),
-    CAND_ID              varchar(9)
+    CAND_ID              varchar(9) REFERENCES CANDIDATE_MASTER_FILE(CAND_ID)
 );
 
 
@@ -38,5 +57,5 @@ CREATE TABLE  CONTRIBUTIONS_BY_INDIVIDUALS (
     FILE_NUM         varchar(22),
     MEMO_CD          varchar(1),
     MEMO_TEXT        varchar(100),
-    SUB_ID           varchar(19)
+    SUB_ID           varchar(19) PRIMARY KEY
 );
