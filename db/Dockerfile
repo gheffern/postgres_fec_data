@@ -1,5 +1,5 @@
 FROM postgres:10.4-alpine
-RUN apk add --update curl unzip
+RUN apk add --update curl unzip vim vimdiff sed
 RUN mkdir election_data
 WORKDIR election_data
 ENV FEC_DOWNLOAD_URL="https://cg-519a459a-0ea3-42c2-b7bc-fa1143481f74.s3-us-gov-west-1.amazonaws.com/bulk-downloads/"
@@ -22,7 +22,9 @@ RUN curl -O ${FEC_DOWNLOAD_URL}2016/cm16.zip && \
 RUN sed -i -e "s/BOOTY\"S/BOOTY'S/g; s/C00042366$//g; s/H6MD10024$/H6MI10250/g; s/H6NY26123$/H6NY26115/g;" cm.txt && \
     sed -i -e "s/WHITEFEAT/WHITEFEAT\"/g; s/PHIBIAN''/PHIBIAN\"/g; s/\"RENT IS TOO DAMN HIGH/\"RENT IS TOO DAMN HIGH\"/g;"  cn.txt &&\
     # deleted a few linkages at the start that pointed at committees instead of candidates  ¯\_(ツ)_/¯.
-    sed -i "/^C/d; s/^H6MD10024/H6MI10250/g; s/^H6NY26123/H6NY26115/g;" ccl.txt && \
-    chmod -R 777 .
+    sed -i -e "/^C/d; s/^H6MD10024/H6MI10250/g; s/^H6NY26123/H6NY26115/g;" ccl.txt && \
+    # Remove non utf-8 char
+    sed -i -e "s/\xA0//g" oppexp.txt && \
+    chmod -R o+w .
 COPY sql/* /docker-entrypoint-initdb.d/
 COPY 2_db_startup.sh /docker-entrypoint-initdb.d/

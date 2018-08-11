@@ -1,4 +1,4 @@
-CREATE TABLE CANDIDATE_MASTER_FILE (
+ CREATE TABLE CANDIDATE_MASTER_FILE (
     CAND_ID              varchar(9) PRIMARY KEY,
     CAND_NAME            varchar(200),
     CAND_PTY_AFFILIATION varchar(3),
@@ -33,6 +33,35 @@ CREATE TABLE  COMMITTEE_MASTER_FILE (
     ORG_TP               varchar(1),
     CONNECTED_ORG_NM     varchar(200),
     CAND_ID              varchar(9) REFERENCES CANDIDATE_MASTER_FILE(CAND_ID)
+);
+
+CREATE TABLE OPERATING_EXPENDITURES (
+    CMTE_ID          varchar(9) REFERENCES COMMITTEE_MASTER_FILE(CMTE_ID),
+    AMNDT_IND        varchar(1),
+    RPT_YR           smallint,
+    RPT_TP           varchar(3),
+    IMAGE_NUM        varchar(18),
+    LINE_NUM         varchar(3),
+    FORM_TP_CD       varchar (8),
+    SCHED_TP_CD      varchar (8),
+    NAME             varchar (200),
+    CITY             varchar (30),
+    STATE            varchar (2),
+    ZIP_CODE         varchar (9),
+    TRANSACTION_DT   varchar (10),
+    TRANSACTION_AMT  money,
+    TRANSACTION_PGI  varchar (5),
+    PURPOSE          varchar (100),
+    CATEGORY         varchar(3),
+    CATEGORY_DESC    varchar(40),
+    MEMO_CD          varchar(1),
+    MEMO_TEXT        varchar(100),
+    ENTITY_TP        varchar(3),
+    SUB_ID           varchar(19) PRIMARY KEY,
+    FILE_NUM         integer,
+    TRAN_ID          varchar(32),
+    BACK_REF_TRAN_ID varchar(32),
+    UNKNOWN          varchar(9)
 );
 
 CREATE TABLE CANDIDATE_TO_COMMITTEE_LINKAGE (
