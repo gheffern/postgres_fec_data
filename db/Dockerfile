@@ -16,14 +16,14 @@ RUN curl -O ${FEC_DOWNLOAD_URL}2016/cm16.zip && \
     curl -O ${FEC_DOWNLOAD_URL}2016/oppexp16.zip && \
     unzip \*.zip && \
     rm *zip && \
-    rm -r by_date/ 
-# Some ugly data minipulation, here be dragons. 
-# Single double quotes in a field break postgres csv import, also double single quotes instead of closing double quote.
-# A few committees candidate values broke fk constraints, blanked out or attempted to fix as seemed prudent.
-# C00042366 -> blanked - Not a candidate 
-# H6MD10024 -> H6MI10250 NOFS, BENJAMIN - attempted to fix, assumed data quality issue
-# H6NY26123 -> H6NY26115 SCHRATZ, SHELLY - attempted to fix, assumed data quality issue
-RUN sed -i -e "s/BOOTY\"S/BOOTY'S/g; s/C00042366$//g; s/H6MD10024$/H6MI10250/g; s/H6NY26123$/H6NY26115/g;" cm.txt && \
+    rm -r by_date/ && \
+    # Some ugly data minipulation, here be dragons. 
+    # Single double quotes in a field break postgres csv import, also double single quotes instead of closing double quote.
+    # A few committees candidate values broke fk constraints, blanked out or attempted to fix as seemed prudent.
+    # C00042366 -> blanked - Not a candidate 
+    # H6MD10024 -> H6MI10250 NOFS, BENJAMIN - attempted to fix, assumed data quality issue
+    # H6NY26123 -> H6NY26115 SCH  RATZ, SHELLY - attempted to fix, assumed data quality issue
+    sed -i -e "s/BOOTY\"S/BOOTY'S/g; s/C00042366$//g; s/H6MD10024$/H6MI10250/g; s/H6NY26123$/H6NY26115/g;" cm.txt && \
     sed -i -e "s/WHITEFEAT/WHITEFEAT\"/g; s/PHIBIAN''/PHIBIAN\"/g; s/\"RENT IS TOO DAMN HIGH/\"RENT IS TOO DAMN HIGH\"/g;"  cn.txt &&\
     # deleted a few linkages at the start that pointed at committees instead of candidates  ¯\_(ツ)_/¯.
     sed -i -e "/^C/d; s/^H6MD10024/H6MI10250/g; s/^H6NY26123/H6NY26115/g;" ccl.txt && \
