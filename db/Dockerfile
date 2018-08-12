@@ -25,6 +25,8 @@ RUN sed -i -e "s/BOOTY\"S/BOOTY'S/g; s/C00042366$//g; s/H6MD10024$/H6MI10250/g; 
     sed -i -e "/^C/d; s/^H6MD10024/H6MI10250/g; s/^H6NY26123/H6NY26115/g;" ccl.txt && \
     # Remove non utf-8 char
     sed -i -e "s/\xA0//g" oppexp.txt && \
+    # Remove records with invalid committee id
+    sed -i -e '/C00455357/d; /C00607698/d;' itoth.txt && \
     chmod -R o+w .
 COPY sql/* /docker-entrypoint-initdb.d/
 COPY 2_db_startup.sh /docker-entrypoint-initdb.d/
