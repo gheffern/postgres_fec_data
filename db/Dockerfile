@@ -23,14 +23,12 @@ RUN curl -O ${FEC_DOWNLOAD_URL}2016/cm16.zip && \
     # C00042366 -> blanked - Not a candidate 
     # H6MD10024 -> H6MI10250 NOFS, BENJAMIN - attempted to fix, assumed data quality issue
     # H6NY26123 -> H6NY26115 SCH  RATZ, SHELLY - attempted to fix, assumed data quality issue
-    sed -i -e "s/BOOTY\"S/BOOTY'S/g; s/C00042366$//g; s/H6MD10024$/H6MI10250/g; s/H6NY26123$/H6NY26115/g;" cm.txt && \
-    sed -i -e "s/WHITEFEAT/WHITEFEAT\"/g; s/PHIBIAN''/PHIBIAN\"/g; s/\"RENT IS TOO DAMN HIGH/\"RENT IS TOO DAMN HIGH\"/g;"  cn.txt &&\
-    # deleted a few linkages at the start that pointed at committees instead of candidates  ¯\_(ツ)_/¯.
-    sed -i -e "/^C/d; s/^H6MD10024/H6MI10250/g; s/^H6NY26123/H6NY26115/g;" ccl.txt && \
+    sed -i "s/BOOTY\"S/BOOTY'S/g;" cm.txt && \
+    sed -i "s/WHITEFEAT/WHITEFEAT\"/g; s/PHIBIAN''/PHIBIAN\"/g; s/\"RENT IS TOO DAMN HIGH/\"RENT IS TOO DAMN HIGH\"/g;"  cn.txt &&\
     # Remove non utf-8 char
-    sed -i -e "s/\xA0//g" oppexp.txt && \
-    # Remove records with invalid committee id
-    sed -i -e '/C00455357/d; /C00607698/d;' itoth.txt && \
+    sed -i "s/\xA0//g" oppexp.txt && \
     chmod -R o+w .
 COPY sql/* /docker-entrypoint-initdb.d/
-COPY 2_db_startup.sh /docker-entrypoint-initdb.d/
+COPY 3_db_startup.sh /docker-entrypoint-initdb.d/
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY my-postgres.conf /election_data/postgresql.conf

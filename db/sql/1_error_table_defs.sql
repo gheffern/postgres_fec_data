@@ -1,4 +1,6 @@
-CREATE TABLE CANDIDATE_MASTER_FILE (
+CREATE SCHEMA ERROR;
+
+CREATE TABLE ERROR.CANDIDATE_MASTER_FILE (
     CAND_ID              varchar(9) PRIMARY KEY,
     CAND_NAME            varchar(200),
     CAND_PTY_AFFILIATION varchar(3),
@@ -16,7 +18,7 @@ CREATE TABLE CANDIDATE_MASTER_FILE (
     CAND_ZIP             varchar(9) 
 );
 
-CREATE TABLE  COMMITTEE_MASTER_FILE (
+CREATE TABLE ERROR.COMMITTEE_MASTER_FILE (
     CMTE_ID              varchar(9) PRIMARY KEY,
     CMTE_NM              varchar(200),
     TRES_NM              varchar(90),
@@ -31,11 +33,11 @@ CREATE TABLE  COMMITTEE_MASTER_FILE (
     CMTE_FILING_FREQ     varchar(1),
     ORG_TP               varchar(1),
     CONNECTED_ORG_NM     varchar(200),
-    CAND_ID              varchar(9) REFERENCES CANDIDATE_MASTER_FILE(CAND_ID)
+    CAND_ID              varchar(9)
 );
 
-CREATE TABLE CONTRIBUTIONS_TO_COMMITTEES_FROM_COMMITTEES (
-    CMTE_ID            varchar(9) REFERENCES COMMITTEE_MASTER_FILE(CMTE_ID),
+CREATE TABLE ERROR.CONTRIBUTIONS_TO_COMMITTEES_FROM_COMMITTEES (
+    CMTE_ID            varchar(9),
     AMNDT_IND          varchar(1),
     RPT_TP             varchar (3),
     TRANSACTION_PGI    varchar (5),
@@ -58,8 +60,8 @@ CREATE TABLE CONTRIBUTIONS_TO_COMMITTEES_FROM_COMMITTEES (
     SUB_ID             varchar(19) PRIMARY KEY
 );
 
-CREATE TABLE OPERATING_EXPENDITURES (
-    CMTE_ID          varchar(9) REFERENCES COMMITTEE_MASTER_FILE(CMTE_ID),
+CREATE TABLE ERROR.OPERATING_EXPENDITURES (
+    CMTE_ID          varchar(9),
     AMNDT_IND        varchar(1),
     RPT_YR           smallint,
     RPT_TP           varchar(3),
@@ -87,18 +89,18 @@ CREATE TABLE OPERATING_EXPENDITURES (
     UNKNOWN          varchar(9)
 );
 
-CREATE TABLE CANDIDATE_TO_COMMITTEE_LINKAGE (
-    CAND_ID           varchar(9) REFERENCES CANDIDATE_MASTER_FILE(CAND_ID),
+CREATE TABLE ERROR.CANDIDATE_TO_COMMITTEE_LINKAGE (
+    CAND_ID           varchar(9),
     CAND_ELECTION_YR  smallint,
     FEC_ELECTION_YR   smallint,
-    CMTE_ID           varchar(9) REFERENCES COMMITTEE_MASTER_FILE(CMTE_ID),
+    CMTE_ID           varchar(9),
     CMTE_TP           varchar(1),
     CMTE_DSGN         varchar(1),
     LINKAGE_ID        int  PRIMARY KEY
 );
 
-CREATE TABLE  CONTRIBUTIONS_BY_INDIVIDUALS (
-    CMTE_ID          varchar(9) REFERENCES COMMITTEE_MASTER_FILE(CMTE_ID) ,
+CREATE TABLE ERROR.CONTRIBUTIONS_BY_INDIVIDUALS (
+    CMTE_ID          varchar(9) ,
     AMNDT_IND        varchar(1),
     RPT_TP           varchar(3),
     TRANSACTION_PGI  varchar(5),
