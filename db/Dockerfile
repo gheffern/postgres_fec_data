@@ -32,3 +32,4 @@ COPY sql/* /docker-entrypoint-initdb.d/
 COPY 3_db_startup.sh /docker-entrypoint-initdb.d/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 COPY my-postgres.conf /election_data/postgresql.conf
+RUN chmod a+x /usr/local/bin/docker-entrypoint.sh
