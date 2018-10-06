@@ -158,7 +158,7 @@ WHERE  e.cmte_id = cm.cmte_id
 ALTER TABLE error.contributions_by_individuals
 ADD COLUMN ERROR_DESC varchar(50);
 
-UPDATE error.contributions_by_individuals set ERROR_DESC= 'Null, invalid, or future dated dates';
+UPDATE error.contributions_by_individuals set ERROR_DESC= 'Null, invalid, future dated dates, or invalid fk id';
 
 --update stats now that we are done messing with the data.
 ANALYZE;
