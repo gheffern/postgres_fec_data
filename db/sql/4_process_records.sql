@@ -156,7 +156,7 @@ WHERE  e.cmte_id = cm.cmte_id
        AND To_date(transaction_dt, 'MMDDYYYY') < To_date('20170101', 'YYYYMMDD');
 
 ALTER TABLE error.contributions_by_individuals
-ADD COLUMN ERROR_DESC varchar(50);
+ADD COLUMN ERROR_DESC varchar(100);
 
 UPDATE error.contributions_by_individuals set ERROR_DESC= 'Null, invalid, future dated dates, or invalid fk id';
 
